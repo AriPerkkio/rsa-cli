@@ -1,4 +1,5 @@
 use num_bigint::{BigInt, RandBigInt, ToBigInt};
+use num_traits::zero;
 
 pub fn get_two_prime_numbers(bit_length: u64) -> (BigInt, BigInt) {
     let p = get_prime_number(bit_length);
@@ -25,7 +26,6 @@ pub fn get_prime_number(bit_length: u64) -> BigInt {
 }
 
 fn is_prime(number: &BigInt) -> bool {
-    let big_int_zero = 0.to_bigint().unwrap();
     let big_int_two = 2.to_bigint().unwrap();
     let big_int_three = 3.to_bigint().unwrap();
 
@@ -33,7 +33,7 @@ fn is_prime(number: &BigInt) -> bool {
         return false;
     }
 
-    if number % 2 == big_int_zero {
+    if number % 2 == zero() {
         return false;
     }
 
@@ -45,7 +45,7 @@ fn is_prime(number: &BigInt) -> bool {
     let square = number.sqrt();
 
     while i < square {
-        if number % &i == big_int_zero {
+        if number % &i == zero() {
             return false;
         }
 

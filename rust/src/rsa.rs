@@ -1,4 +1,5 @@
 use num_bigint::{BigInt, ToBigInt};
+use num_traits::{one, zero};
 
 use crate::prime_number;
 
@@ -36,9 +37,7 @@ pub fn decrypt(message: &Vec<BigInt>, public_key: &BigInt, private_key: &BigInt)
 
 pub fn calculate_keys(p: &BigInt, q: &BigInt) -> Keys {
     let n = p * q;
-
-    let one = 1.to_bigint().unwrap();
-    let f: BigInt = (p - &one) * (q - &one);
+    let f: BigInt = (p - 1) * (q - 1);
 
     let mut e = prime_number::get_prime_number(f.bits());
 
@@ -52,7 +51,7 @@ pub fn calculate_keys(p: &BigInt, q: &BigInt) -> Keys {
         gcd = output.0;
         y_factor = output.1;
 
-        if gcd == one {
+        if gcd == one() {
             break;
         }
     }
@@ -72,12 +71,10 @@ fn calculate_greatest_common_divisor(_x: &BigInt, _y: &BigInt) -> (BigInt, BigIn
     let mut leftover: BigInt;
 
     let mut z: BigInt;
-    let mut xx = 1.to_bigint().unwrap();
-    let mut yy = 0.to_bigint().unwrap();
-    let mut v = 1.to_bigint().unwrap();
-    let mut u = 0.to_bigint().unwrap();
-
-    let zero = 0.to_bigint().unwrap();
+    let mut xx: BigInt = one();
+    let mut yy: BigInt = zero();
+    let mut v: BigInt = one();
+    let mut u: BigInt = zero();
 
     loop {
         factor = &x / &y;
@@ -95,12 +92,12 @@ fn calculate_greatest_common_divisor(_x: &BigInt, _y: &BigInt) -> (BigInt, BigIn
         v = &yy - &factor * &v;
         yy = z;
 
-        if y == zero {
+        if y == zero() {
             break;
         }
     }
 
-    return (x, if yy < zero { _x + yy } else { yy });
+    return (x, if yy < zero() { _x + yy } else { yy });
 }
 
 pub fn display_as_text(encrypted: &Vec<BigInt>) -> String {
