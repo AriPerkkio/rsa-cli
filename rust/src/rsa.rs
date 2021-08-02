@@ -100,14 +100,27 @@ fn calculate_greatest_common_divisor(_x: &BigInt, _y: &BigInt) -> (BigInt, BigIn
     return (x, if yy < zero() { _x + yy } else { yy });
 }
 
-pub fn display_as_text(encrypted: &Vec<BigInt>) -> String {
-    let mut decrypted = String::new();
+pub fn display_as_text(numeric: &Vec<BigInt>) -> String {
+    let mut textual = String::new();
 
-    for encrypted_char in encrypted {
-        for digit in encrypted_char.to_bytes_be().1 {
-            decrypted.push(digit as char)
+    for numeric_char in numeric {
+        for digit in numeric_char.to_bytes_be().1 {
+            textual.push(digit as char)
         }
     }
 
-    return decrypted;
+    return textual.escape_default().collect();
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn calculates_gcd() {
+        let (gcd, _) =
+            calculate_greatest_common_divisor(&27.to_bigint().unwrap(), &18.to_bigint().unwrap());
+
+        assert_eq!(gcd, 9.to_bigint().unwrap());
+    }
 }

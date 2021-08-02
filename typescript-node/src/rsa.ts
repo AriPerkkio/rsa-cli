@@ -108,8 +108,8 @@ function calculateGreatestCommonDivisor(
     return { gcd: x, yFactor: yy < 0 ? _x + yy : yy };
 }
 
-export function displayAsText(encrypted: bigint[]): string {
-    return encrypted
+export function displayAsText(numeric: bigint[]): string {
+    return numeric
         .map(e => String.fromCharCode(parseInt(e.toString())))
         .join('');
 }
