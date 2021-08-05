@@ -11,28 +11,18 @@ pub struct Keys {
 }
 
 pub fn encrypt(message: &str, public_key: &BigInt, exponent: &BigInt) -> Vec<BigInt> {
-    let mut encrypted: Vec<BigInt> = Vec::new();
-
-    for character in message.chars() {
-        let numeric: BigInt = (character as u32).to_bigint().unwrap();
-        let encrypted_char = numeric.modpow(&exponent, &public_key);
-
-        encrypted.push(encrypted_char);
-    }
-
-    return encrypted;
+    message
+        .chars()
+        .map(|character| (character as u32).to_bigint().unwrap())
+        .map(|num| num.modpow(&exponent, &public_key))
+        .collect()
 }
 
 pub fn decrypt(message: &Vec<BigInt>, public_key: &BigInt, private_key: &BigInt) -> Vec<BigInt> {
-    let mut decrypted: Vec<BigInt> = Vec::new();
-
-    for character in message {
-        let decrypted_char = character.modpow(&private_key, &public_key);
-
-        decrypted.push(decrypted_char);
-    }
-
-    return decrypted;
+    message
+        .iter()
+        .map(|character| character.modpow(&private_key, &public_key))
+        .collect()
 }
 
 pub fn calculate_keys(p: &BigInt, q: &BigInt) -> Keys {
