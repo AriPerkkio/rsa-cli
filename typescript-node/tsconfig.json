@@ -1,13 +1,11 @@
 {
     "compilerOptions": {
-        "lib": ["es2020"],
+        "lib": ["esnext"],
         "module": "CommonJS",
-        "target": "es2020",
-
-        "outDir": "dist",
+        "target": "esnext",
         "strict": true,
         "esModuleInterop": true,
         "skipLibCheck": true
     },
-    "include": ["src/rsa.ts"]
+    "include": ["src"]
 }

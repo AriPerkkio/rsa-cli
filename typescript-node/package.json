@@ -1,14 +1,13 @@
 {
-    "name": "rsa-wasm-vs-js",
+    "name": "rsa-cli",
     "version": "1.0.0",
     "description": "",
+    "license": "MIT",
     "main": "index.js",
     "scripts": {
         "start": "ts-node src/index.ts",
         "lint": "eslint . --max-warnings 0 --ext .js,.ts,.tsx"
     },
-    "author": "",
-    "license": "ISC",
     "devDependencies": {
         "@types/node": "^16.4.3",
         "@typescript-eslint/eslint-plugin": "^4.28.5",
@@ -19,5 +18,31 @@
         "prettier": "^2.3.2",
         "ts-node": "^10.1.0",
         "typescript": "^4.3.5"
+    },
+    "prettier": {
+        "arrowParens": "avoid",
+        "semi": true,
+        "singleQuote": true,
+        "tabWidth": 4
+    },
+    "eslintConfig": {
+        "root": true,
+        "env": {
+            "node": true,
+            "es6": true
+        },
+        "globals": {
+            "BigInt": true
+        },
+        "parserOptions": {
+            "ecmaVersion": 2020,
+            "sourceType": "module"
+        },
+        "parser": "@typescript-eslint/parser",
+        "extends": [
+            "eslint:recommended",
+            "plugin:prettier/recommended",
+            "plugin:@typescript-eslint/eslint-plugin/recommended"
+        ]
     }
 }
